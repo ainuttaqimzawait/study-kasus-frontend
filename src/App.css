@@ -1,3 +1,22 @@
+body {
+  margin-left: 0px;
+  font-family: SFProDisplay-Bold, Helvetica, Arial, sans-serif;
+}
+
+
+Input#username,
+#email,
+#password {
+  width: 315px;
+  height: 40px;
+  border: 0.5px solid #ddd7dd;
+  border-radius: 3px;
+  padding-left: 10px;
+  margin-bottom: 30px;
+  margin-left: -15px;
+  font-size: 16px;
+}
+
 .App {
   text-align: center;
 }
@@ -32,6 +51,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

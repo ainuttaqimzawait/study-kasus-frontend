@@ -1,162 +1,46 @@
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useState } from 'react';
-import { Button, Card, Carousel, Row } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
+import { config } from '../../config';
 
-function CardProduct() {
-    const [products, setProducts] = useState([]);
-
-    const fetchProducts = async () => {
-        try {
-            const productResponse = await axios.get('http://localhost:3000/api/products');
-            console.log(productResponse.data.data);
-            setProducts(productResponse.data.data);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    const renderProducts = () => {
-        return products.map(() => {
-            return <col md={4}>
-                <Card
-                    style={{
-                        width: '18rem'
-                    }}>
-                    <Card.Img
-                        variant="top"
-                        src="holder.js/100px180"
-                    />
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                            Some quick example text to build on the card title and make up the
-                            bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-            </col>
-        })
-    }
-    useEffect(() => {
-        fetchProducts()
-    }, []);
-    return (
-        <div
-            className="container"
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "#f5f7f6"
+export default function CardProduct({ item, onAddToCart }) {
+    return <Card
+        style={{
+            width: '18rem',
+            height: '24rem',
+            marginBottom: '20px'
+        }}>
+        <Card.Img
+            variant="top"
+            src={`${config.api_host}/images/products/${item.image_url}`}
+            style={{ width: '18rem', height: '190px' }}
+        />
+        <Card.Body>
+            <Card.Title>{item.name}</Card.Title>
+            <Card.Text>
+                {item.category.name}
+            </Card.Text>
+            <footer style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                position: 'absolute',
+                width: '18rem',
+                bottom: '0px',
+                marginBottom: '0px'
             }}>
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column"
+                <Card.Text style={{
+                    color: 'orange',
+                    marginTop: '10px'
                 }}>
-                <div
-                    style={{
-                        backgroundColor: "white",
-                        display: "flex",
-                        justifyContent: "center",
-                        width: "1190px",
-                        marginTop: "145px",
-                        marginBottom: "25px"
-                    }}>
-                    <Carousel
-                        style={{
-                            backgroundColor: "lightblue",
-                            marginRight: "10px"
-                        }}>
-                        <Carousel.Item
-                            style={{
-                                height: "267px",
-                                width: "796px"
-                            }}>
-                            <img
-                                src="corousel1.jpg"
-                                alt="#"
-                                style={{
-                                    height: "267px"
-                                }} />
-                        </Carousel.Item>
-                        <Carousel.Item
-                            style={{
-                                height: "267px",
-                                width: "796px"
-                            }}>
-                            <img
-                                src="corousel2.jpg"
-                                alt="#"
-                                style={{
-                                    height: "267px"
-                                }} />
-                        </Carousel.Item>
-                        <Carousel.Item
-                            style={{
-                                height: "267px",
-                                width: "796px"
-                            }}>
-                            <img
-                                src="corousel3.jpg"
-                                alt="#"
-                                style={{
-                                    height: "267px"
-                                }} />
-                        </Carousel.Item>
-                        <Carousel.Item
-                            style={{
-                                height: "267px",
-                                width: "796px"
-                            }}>
-                            <img
-                                src="corousel4.jpg"
-                                alt="#"
-                                style={{
-                                    height: "267px"
-                                }} />
-                        </Carousel.Item>
-                        <Carousel.Item
-                            style={{
-                                height: "267px",
-                                width: "796px"
-                            }}>
-                            <img
-                                src="corousel5.jpg"
-                                alt="#"
-                                style={{
-                                    height: "267px"
-                                }} />
-                        </Carousel.Item>
-                    </Carousel>
-                    <div
-                        style={{
-                            display: "flex"
-                        }}>
-                        <img
-                            src="discount2.jpg"
-                            alt="#"
-                            style={{
-                                height: "267px",
-                                paddingRight: "10px"
-                            }} />
-                        <img
-                            src="discount1.jpg"
-                            alt="#"
-                            style={{
-                                height: "267px"
-                            }} />
-                    </div>
-                </div>
-                <div className="cardContainer">
-                    <Row>
-                        {renderProducts()}
-                    </Row>
-                </div>
-            </div>
-        </div>
-    );
+                    Rp. {item.price}
+                </Card.Text>
+                <Button variant='none' style={{
+                    marginRight: '20px',
+                    marginBottom: '10px'
+                }}
+                    onClick={() => onAddToCart()}>
+                    <img style={{ height: '2rem', width: '2rem' }} src="keranjang-belanja.png" alt="" />
+                </Button>
+            </footer>
+        </Card.Body>
+    </Card>
 }
-
-export default CardProduct;
